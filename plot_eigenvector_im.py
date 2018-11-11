@@ -21,7 +21,7 @@ with open(filename, 'rt') as f:
 	var = [[NEV_list[EV][i][M][dim_list.index(dim)][1] for i in range(0, len(NEV_list[EV]))] for M in range(0,MANZ,1)]
 	fig, ax = plt.subplots()
 	for N in range(0,len(var)):	
-		plt.plot(np.linspace(0, 1, num=len(var[N])), var[N], label='M='+str(N+1), marker=".", markersize=3, ls="")
+		plt.plot(np.linspace(0, 1, num=len(var[N])), var[N], label='M='+str(N+startingharmonic-np.floor((len(var)-1)/2)), marker=".", markersize=3, ls="")
 	plt.xlabel('S')
 	plt.ylabel('{}'.format(dim))
 	plt.title('Im {} component for eigenvalue {}'.format(dim, EV))

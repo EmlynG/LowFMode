@@ -44,7 +44,7 @@ with open(filename, 'rt') as f:
 					outerlimval, outerlimpower = float(str(outerlimval).strip()), float(str(outerlimpower).strip())
 					outer = outerlimval*10**outerlimpower
 	for N in range(0,len(var)):	
-		plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic), marker=".", markersize=3, ls="")
+		plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic-np.floor((len(var)-1)/2)), marker=".", markersize=3, ls="")
 	plt.xlabel('S')
 	plt.ylabel('{}'.format(dim))
 	plt.title('Re {} component for eigenvalue {}'.format(dim, EV))

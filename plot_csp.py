@@ -82,7 +82,7 @@ with open(inputfile, 'r') as inpfile:
 		val, power = (target[1:-1].split(',')[1]).split('D')
 		val, power = float(str(val).strip()), float(str(power).strip())
 		freq = val*pow(10.0,power)
-		plt.plot([np.min(r),np.max(r)],[freq,freq],"r--")
+		plt.plot([np.min(r),np.max(r)],[-freq,-freq],"r--")
 		plt.text(0.1, 0.05, '-- Target', ha='center', va='center', transform=ax.transAxes, fontsize=8, color = 'r')
 plt.xlim([np.min(r),np.max(r)])
 plt.xlabel('s')

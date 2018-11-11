@@ -10,8 +10,9 @@ from matplotlib import pyplot as plt
 saveloc = "/SecondDisk/PHOENIX_RUNS/NSTX/SPLINE_TARGET_SCAN/"
 print("Initialising")
 fileout = os.path.join(os.getcwd(),'INPUT/phoenix.inp')
-freqlist = list(np.arange(0.260, 0.31, 0.01))+list(np.arange(-0.31, -0.260, 0.01))
-grlist = list(np.arange(0.02, 0.06, 0.01))+list(np.arange(-0.06, -0.02, 0.01))
+#freqlist = list(np.arange(0.260, 0.4, 0.01))+list(np.arange(-0.4, -0.260, 0.01))
+freqlist = list(np.arange(-0.4, -0.260, 0.01))
+grlist = list(np.arange(0.05, 0.1, 0.05))+list(np.arange(-0.1, -0.05, 0.05))
 #freqlist = [0.27]
 #grlist = [0.02]
 for freq1 in freqlist:
@@ -22,7 +23,7 @@ for freq1 in freqlist:
 			print("Reading old input file")
 			filecontents = outputfile.read()
 			##target = re.findall('\([^A]+\)',filecontents)[0]
-			newtarget = "("+str(gr)+"D+0, "+str(freq)+"D+0)"
+			newtarget = "("+str(gr)+"D+0, "+str(-freq)+"D+0)"
 			outputfile.seek(0)
 			outputfile.write(re.sub('\([^A]+\)', newtarget, filecontents, 1))
 			print("Writing new input file")
@@ -105,7 +106,7 @@ for freq1 in freqlist:
 				plt.text(0.1, 0.05, '-- Target', ha='center', va='center', transform=ax.transAxes, fontsize=8, color = 'r')
 				inpfile.close()
 			## NAME THE OUTPUT FILES
-			prefix = "ROT2_N"+str(nval)+"_M1_GR"+str(round(gr,3))+"FREQ"+str(round(freq,3))							
+			prefix = "ROT2_N"+str(nval)+"_M1_GR"+str(round(gr,3))+"FREQ"+str(round(-freq,3))							
 			plt.xlim([np.min(r),np.max(r)])
 			plt.xlabel('s')
 			plt.ylim([omega_min,omega_max])
@@ -149,7 +150,7 @@ for freq1 in freqlist:
 								var = [[NEV_list[EV][i][M][dim_list.index(dim)][0] for i in range(0, len(NEV_list[EV]))] for M in range(0,MANZ,1)]
 								fig, ax = plt.subplots()
 								for N in range(0,len(var)):	
-									plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic), marker=".", markersize=3, ls="")
+									plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic-np.floor((len(var)-1)/2)), marker=".", markersize=3, ls="")
 								plt.xlabel('S')
 								plt.ylabel('{}'.format(dim))
 								plt.title('{} Re component for eigenvalue {}'.format(dim, EV))
@@ -167,7 +168,7 @@ for freq1 in freqlist:
 								var = [[NEV_list[EV][i][M][dim_list.index(dim)][1] for i in range(0, len(NEV_list[EV]))] for M in range(0,MANZ,1)]
 								fig, ax = plt.subplots()
 								for N in range(0,len(var)):	
-									plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic), marker=".", markersize=3, ls="")
+									plt.plot(np.linspace(inner, outer, num=len(var[N])), var[N], label='M='+str(N+startingharmonic-np.floor((len(var)-1)/2)), marker=".", markersize=3, ls="")
 								plt.xlabel('S')
 								plt.ylabel('{}'.format(dim))
 								plt.title('Im {} component for eigenvalue {}'.format(dim, EV))
